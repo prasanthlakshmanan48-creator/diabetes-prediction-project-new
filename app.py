@@ -3,8 +3,8 @@ import joblib
 import numpy as np
 
 # Load the saved model and scaler
-model = joblib.load("diabetes_model.pkl")
-scaler = joblib.load("scaler.pkl")
+model = joblib.load("diabetes_model (1).pkl")
+scaler = joblib.load("scaler (1).pkl")
 
 st.set_page_config(page_title="Diabetes Prediction", page_icon="🩺")
 
