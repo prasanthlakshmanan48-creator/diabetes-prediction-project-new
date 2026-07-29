@@ -1,70 +1,90 @@
 import streamlit as st
-import joblib
-import numpy as np
 import pandas as pd
+import numpy as np
+import joblib
 
-# Load the saved model and scaler
+# -------------------------------
+# PAGE CONFIGURATION
+# -------------------------------
+st.set_page_config(
+    page_title="Diabetes Prediction Dashboard",
+    page_icon="🩺",
+    layout="wide"
+)
+
+# -------------------------------
+# LOAD MODEL
+# -------------------------------
 model = joblib.load("diabetes_model (1).pkl")
 scaler = joblib.load("scaler (1).pkl")
 
+# -------------------------------
+# LOAD DATASET
+# -------------------------------
 df = pd.read_excel("diabetes (1).csv.xlsx")
 
-st.set_page_config(page_title="Diabetes Prediction", page_icon="🩺")
+# -------------------------------
+# SIDEBAR
+# -------------------------------
+st.sidebar.title("🩺 Diabetes Prediction System")
 
-st.title("🩺 Intelligent Diabetes Prediction System")
-st.write("Enter the patient's details below.")
+st.sidebar.markdown("## Patient Information")
 
-preg = st.number_input("Pregnancies", min_value=0, value=1)
-glucose = st.number_input("Glucose", min_value=0, value=120)
-bp = st.number_input("Blood Pressure", min_value=0, value=70)
-skin = st.number_input("Skin Thickness", min_value=0, value=20)
-insulin = st.number_input("Insulin", min_value=0, value=80)
-bmi = st.number_input("BMI", min_value=0.0, value=25.0)
-dpf = st.number_input("Diabetes Pedigree Function", min_value=0.0, value=0.5)
-age = st.number_input("Age", min_value=1, value=30)
+preg = st.sidebar.number_input(
+    "Pregnancies",
+    min_value=0,
+    value=2
+)
 
-if st.button("Predict"):
+glucose = st.sidebar.number_input(
+    "Glucose (mg/dL)",
+    min_value=0,
+    value=120
+)
 
-    patient = np.array([[preg, glucose, bp, skin, insulin, bmi, dpf, age]])
+bp = st.sidebar.number_input(
+    "Blood Pressure (mm Hg)",
+    min_value=0,
+    value=70
+)
 
-    patient = scaler.transform(patient)
+skin = st.sidebar.number_input(
+    "Skin Thickness (mm)",
+    min_value=0,
+    value=20
+)
 
-    prediction = model.predict(patient)[0]
-    probability = model.predict_proba(patient)[0][1] * 100
+insulin = st.sidebar.number_input(
+    "Insulin (mu U/ml)",
+    min_value=0,
+    value=85
+)
 
-    st.subheader("Prediction Result")
+bmi = st.sidebar.number_input(
+    "BMI (kg/m²)",
+    min_value=0.0,
+    value=28.5
+)
 
-    if prediction == 1:
-        st.error("⚠️ Diabetic")
-    else:
-        st.success("✅ Non-Diabetic")
+dpf = st.sidebar.number_input(
+    "Diabetes Pedigree Function",
+    min_value=0.0,
+    value=0.35
+)
 
-    st.write(f"Risk Probability: {probability:.2f}%")
+age = st.sidebar.number_input(
+    "Age (years)",
+    min_value=1,
+    value=45
+)
 
-    st.subheader("Health Recommendation")
+predict = st.sidebar.button("🔍 Predict Diabetes Risk")
 
-    if probability >= 70:
-        st.warning("High Risk")
-        st.write("• Consult a doctor immediately.")
-        st.write("• Exercise regularly.")
-        st.write("• Reduce sugar intake.")
-        st.write("• Monitor blood glucose frequently.")
+# -------------------------------
+# MAIN TITLE
+# -------------------------------
+st.title("🩺 Diabetes Prediction Dashboard")
 
-    elif probability >= 40:
-        st.info("Moderate Risk")
-        st.write("• Maintain a healthy diet.")
-        st.write("• Walk at least 30 minutes daily.")
-        st.write("• Monitor your blood sugar regularly.")
+st.subheader("Using Machine Learning")
 
-    else:
-        st.success("Low Risk")
-        st.write("• Continue a healthy lifestyle.")
-        st.write("• Exercise regularly.")
-        st.write("• Eat a balanced diet.")
-      
-import plotly.express as px
-
-st.header("📊 Interactive Dashboard")
-
-fig = px.histogram(df, x="Glucose", title="Glucose Distribution")
-st.plotly_chart(fig)
+st.markdown("---")
