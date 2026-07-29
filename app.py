@@ -125,36 +125,30 @@ if predict:
         st.progress(int(probability))
 
         st.write(f"Risk Score : {probability:.2f}%")
-        )
 
-    with col2:
+    # ----------------------------
+    # Health Recommendation
+    # ----------------------------
+    st.subheader("🩺 Health Recommendation")
 
-        st.subheader("Risk Level")
+    if probability >= 70:
+        st.error("High Risk")
+        st.write("• Consult a doctor as soon as possible.")
+        st.write("• Monitor your blood glucose regularly.")
+        st.write("• Follow a diabetic-friendly diet.")
+        st.write("• Exercise for at least 30 minutes daily.")
+        st.write("• Reduce sugar and processed foods.")
 
-        st.progress(int(probability))
+    elif probability >= 40:
+        st.warning("Moderate Risk")
+        st.write("• Maintain a balanced diet.")
+        st.write("• Exercise regularly.")
+        st.write("• Check your blood sugar periodically.")
+        st.write("• Maintain a healthy body weight.")
 
-       st.write(f"Risk Score : {probability:.2f}%")
-
-st.subheader("🩺 Health Recommendation")
-
-if probability >= 70:
-    st.error("High Risk")
-    st.write("• Consult a doctor as soon as possible.")
-    st.write("• Monitor your blood glucose regularly.")
-    st.write("• Follow a diabetic-friendly diet.")
-    st.write("• Exercise for at least 30 minutes daily.")
-    st.write("• Reduce sugar and processed foods.")
-
-elif probability >= 40:
-    st.warning("Moderate Risk")
-    st.write("• Maintain a balanced diet.")
-    st.write("• Exercise regularly.")
-    st.write("• Check your blood sugar periodically.")
-    st.write("• Maintain a healthy body weight.")
-
-else:
-    st.success("Low Risk")
-    st.write("• Continue your healthy lifestyle.")
-    st.write("• Eat a balanced diet.")
-    st.write("• Stay physically active.")
-    st.write("• Have regular health check-ups.")
+    else:
+        st.success("Low Risk")
+        st.write("• Continue your healthy lifestyle.")
+        st.write("• Eat a balanced diet.")
+        st.write("• Stay physically active.")
+        st.write("• Have regular health check-ups.")
