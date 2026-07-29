@@ -61,3 +61,10 @@ if st.button("Predict"):
         st.write("• Continue a healthy lifestyle.")
         st.write("• Exercise regularly.")
         st.write("• Eat a balanced diet.")
+      
+import plotly.express as px
+
+st.header("📊 Interactive Dashboard")
+
+fig = px.histogram(df, x="Glucose", title="Glucose Distribution")
+st.plotly_chart(fig)
