@@ -89,6 +89,30 @@ st.subheader("Using Machine Learning")
 
 st.markdown("---")
 # ============================
+# DASHBOARD KPIs
+# ============================
+
+total_records = len(df)
+diabetic = len(df[df["Outcome"] == 1])
+non_diabetic = len(df[df["Outcome"] == 0])
+
+# Use your actual model accuracy here
+accuracy = 83.2
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric("📋 Total Records", total_records)
+
+with col2:
+    st.metric("🟢 Non-Diabetic", non_diabetic)
+
+with col3:
+    st.metric("🔴 Diabetic", diabetic)
+
+with col4:
+    st.metric("🎯 Model Accuracy", f"{accuracy}%")
+# ============================
 # PREDICTION
 # ============================
 
