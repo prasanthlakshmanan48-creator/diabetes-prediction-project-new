@@ -88,3 +88,41 @@ st.title("🩺 Diabetes Prediction Dashboard")
 st.subheader("Using Machine Learning")
 
 st.markdown("---")
+# ============================
+# PREDICTION
+# ============================
+
+if predict:
+
+    patient = np.array([[preg, glucose, bp, skin,
+                         insulin, bmi, dpf, age]])
+
+    patient = scaler.transform(patient)
+
+    prediction = model.predict(patient)[0]
+
+    probability = model.predict_proba(patient)[0][1] * 100
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        st.subheader("Prediction Result")
+
+        if prediction == 1:
+            st.error("🔴 High Risk of Diabetes")
+        else:
+            st.success("🟢 Non-Diabetic")
+
+        st.metric(
+            "Probability of Diabetes",
+            f"{probability:.2f}%"
+        )
+
+    with col2:
+
+        st.subheader("Risk Level")
+
+        st.progress(int(probability))
+
+        st.write(f"Risk Score : {probability:.2f}%")
