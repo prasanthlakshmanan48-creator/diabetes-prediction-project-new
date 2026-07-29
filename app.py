@@ -1,10 +1,13 @@
 import streamlit as st
 import joblib
 import numpy as np
+import pandas as pd
 
 # Load the saved model and scaler
 model = joblib.load("diabetes_model (1).pkl")
 scaler = joblib.load("scaler (1).pkl")
+
+df = pd.read_excel("diabetes (1).csv.xlsx")
 
 st.set_page_config(page_title="Diabetes Prediction", page_icon="🩺")
 
